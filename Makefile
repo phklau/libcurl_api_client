@@ -11,8 +11,10 @@ clean:
 
 
 main: main.o PostRequest.o
-	g++ -o api_client ./main.o ./PostRequest.o -l curl
+	g++ -o api_client ./main.o ./PostRequest.o -l curl -g
 main.o: main.cpp 
-	g++ -c ./main.cpp
+	g++ -c ./main.cpp -g
 PostRequest.o: PostRequest.cpp
-	g++ -c PostRequest.cpp
+	g++ -c PostRequest.cpp -g
+GetRequest.o: GetRequest.cpp
+	g++ -c GetRequest.cpp -g
