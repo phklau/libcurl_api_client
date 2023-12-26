@@ -10,8 +10,8 @@ clean:
 	rm -rf *.o
 
 
-main: main.o PostRequest.o
-	g++ -o api_client ./main.o ./PostRequest.o -l curl -g
+main: main.o PostRequest.o GetRequest.o
+	g++ -o api_client ./main.o ./PostRequest.o ./GetRequest.o -l curl -g
 main.o: main.cpp 
 	g++ -c ./main.cpp -g
 PostRequest.o: PostRequest.cpp
