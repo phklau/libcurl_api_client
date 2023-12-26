@@ -1,7 +1,9 @@
-// Copyright 2023 Mensch
+// Copyright 2023 for the linter
 
 #include <curl/curl.h>
 #include <iostream>
+
+#include "PostRequest.hpp"
 
 const char* end_point = "http://localhost:8080/api/measurement";
 const char* data = "{\"sensor\":\"puls\",\"value\":112,\"timestamp\":\"12:12\"}";
@@ -15,6 +17,7 @@ int main() {
     curl_global_init(CURL_GLOBAL_ALL);
 
     // get handle
+#ifdef DEBUG
     CURL *curl_handle = curl_easy_init();
 
     // post header
@@ -31,6 +34,9 @@ int main() {
 
     // send request
     int success = curl_easy_perform(curl_handle);
+#endif
+    PostRequest request = PostRequest(end_point);
+    int success = request.sendRequest(data);
     std::cout << "Request send" << std::endl
               << "Returncode:" << success << std::endl;
 
