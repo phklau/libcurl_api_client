@@ -14,7 +14,7 @@ class PostRequest {
 
     public:
         PostRequest(const std::string url);
-        int const sendRequest(const std::string& data);
+        bool const sendRequest(const std::string& data);
 };
 
 #endif

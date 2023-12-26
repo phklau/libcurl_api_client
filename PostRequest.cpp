@@ -1,4 +1,5 @@
 // Copyright 2023 for the linter
+#include <iostream>
 #include "PostRequest.hpp"
 
 PostRequest::PostRequest(const std::string url) {
@@ -12,7 +13,11 @@ PostRequest::PostRequest(const std::string url) {
     curl_easy_setopt(_curl_handle, CURLOPT_HTTPHEADER, _header);
 }
 
-int const PostRequest::sendRequest(const std::string& data) {
+bool const PostRequest::sendRequest(const std::string& data) {
     curl_easy_setopt(_curl_handle, CURLOPT_POSTFIELDS, data.c_str());
-    return curl_easy_perform(_curl_handle);
+    int error = curl_easy_perform(_curl_handle);
+    if (error) {
+        std::cerr<< "Request failed with code: "<< error << " \"" << curl_easy_strerror(static_cast<CURLcode>(error)) << "\"" << std::endl;
+    }
+    return !static_cast<bool>(error);
 }
