@@ -23,14 +23,14 @@ int main() {
     // return codes:      0 --> no error
     //               others --> see https://curl.se/libcurl/c/libcurl-errors.html
     PostRequest post_request = PostRequest(end_point);
-    int post_success = post_request.sendRequest(data);
-    std::cout << "Request send" << std::endl
-              << "Returncode:" << post_success << std::endl;
+    if (post_request.sendRequest(data)) {
+        std::cout << "Request send" << std::endl;
+    }
 
     GetRequest get_request = GetRequest(end_point);
-    int get_success = get_request.sendRequest();
-    std::cout << "Request send" << std::endl
-              << "Returncode:" << get_success << std::endl;
+    if (get_request.sendRequest()) {
+        std::cout << "Request send" << std::endl;
+    }
 
     return 0;
 }
