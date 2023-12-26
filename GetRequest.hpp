@@ -1,20 +1,24 @@
 // Copyright 2023 for the linter
-#ifndef POSTREQUEST
-#define POSTREQUEST
+#ifndef GETREQUEST
+#define GETREQUEST
 
 #include <curl/curl.h>
 #include <string>
+#include <iostream>
 
-// PostRequest sending JSON to an API endpoint
-class PostRequest {
+// GetRequest to querry data from API
+class GetRequest {
+    static size_t print_response(void *buffer, size_t size, size_t nmemb, void *userp) {
+    std::cout << static_cast<const char*>(buffer) << std::endl;
+    return size * nmemb;
+}
     private:
         CURL* _curl_handle;
-        struct curl_slist* _header = nullptr;
         std::string _url;
 
     public:
-        PostRequest(const std::string url);
-        int const sendRequest(const std::string& data);
+        GetRequest(const std::string url);
+        int const sendRequest();
 };
 
-#endif
+#endif // GETREQUEST
