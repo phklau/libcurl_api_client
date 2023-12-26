@@ -18,7 +18,7 @@ class GetRequest {
 
     public:
         GetRequest(const std::string url);
-        int const sendRequest();
+        bool const sendRequest();
 };
 
 #endif // GETREQUEST

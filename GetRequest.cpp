@@ -9,6 +9,10 @@ GetRequest::GetRequest(const std::string url) {
 }
 
 
-int const GetRequest::sendRequest() {
-    return curl_easy_perform(_curl_handle);
+bool const GetRequest::sendRequest() {
+    int error = curl_easy_perform(_curl_handle);
+    if (error) {
+        std::cerr<< "Request failed with code: "<< error << " \"" << curl_easy_strerror(static_cast<CURLcode>(error)) << "\"" << std::endl;
+    }
+    return !static_cast<bool>(error);
 }
