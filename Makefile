@@ -1,7 +1,7 @@
 EXEC := api_client
 
-BUILD_DIR := ./build
-SRC_DIR := ./src
+BUILD_DIR := build
+SRC_DIR := src
 
 SRCS := GetRequest.cpp PostRequest.cpp main.cpp
 
@@ -17,7 +17,8 @@ INC_DIRS := include
 build: $(BUILD_DIR)/$(EXEC)
 
 .PHONY: debug
-debug: $(BUILD_DIR)/$(EXEC)
+debug:
+	echo $(OBJS)
 
 .PHONY: run
 run: build
@@ -29,18 +30,17 @@ clean:
 
 .PHONY: lint
 lint:
-	python3 $(PYLINT) *.cpp *.h
+	python3 $(PYLINT) $(SRC_DIR)/*.cpp $(SRC_DIR)/*.h
 
 .PHONY: debug
 debug:
-	echo $(OBJS)
 
 # Link
 $(BUILD_DIR)/$(EXEC): $(OBJS)
 	$(CXX) $(OBJS) -o $(BUILD_DIR)/$(EXEC) $(LDFLAGS)
 
 # Compile
-$(BUILD_DIR)/%.o: %.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p build
 	$(CXX) $(CPPFLAGS) -c $< -o $@
 
