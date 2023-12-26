@@ -18,30 +18,15 @@ int main() {
     curl_global_init(CURL_GLOBAL_ALL);
 
     // get handle
-#ifdef DEBUG
     CURL *curl_handle = curl_easy_init();
 
-    // post header
-    struct curl_slist *header = nullptr;
-    header = curl_slist_append(header, "Content-Type: application/json");
-    header = curl_slist_append(header, "Accept: application/json");
-
-    // prepare post request
-    curl_easy_setopt(curl_handle, CURLOPT_URL, end_point);
-    curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, data);
-    curl_easy_setopt(curl_handle, CURLOPT_HTTPHEADER, header);
-    // libcurl default prints data to the stdout, only to test
-    // curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, print_response);
-
-    // send request
-    int success = curl_easy_perform(curl_handle);
-#endif
     // return codes:      0 --> no error
     //               others --> see https://curl.se/libcurl/c/libcurl-errors.html
     PostRequest post_request = PostRequest(end_point);
     int post_success = post_request.sendRequest(data);
     std::cout << "Request send" << std::endl
               << "Returncode:" << post_success << std::endl;
+
     GetRequest get_request = GetRequest(end_point);
     int get_success = get_request.sendRequest();
     std::cout << "Request send" << std::endl
