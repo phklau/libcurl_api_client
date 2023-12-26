@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "PostRequest.hpp"
+#include "GetRequest.hpp"
 
 const char* end_point = "http://localhost:8080/api/measurement";
 const char* data = "{\"sensor\":\"puls\",\"value\":112,\"timestamp\":\"12:12\"}";
@@ -35,10 +36,16 @@ int main() {
     // send request
     int success = curl_easy_perform(curl_handle);
 #endif
-    PostRequest request = PostRequest(end_point);
-    int success = request.sendRequest(data);
+    // return codes:      0 --> no error
+    //               others --> see https://curl.se/libcurl/c/libcurl-errors.html
+    PostRequest post_request = PostRequest(end_point);
+    int post_success = post_request.sendRequest(data);
     std::cout << "Request send" << std::endl
-              << "Returncode:" << success << std::endl;
+              << "Returncode:" << post_success << std::endl;
+    GetRequest get_request = GetRequest(end_point);
+    int get_success = get_request.sendRequest();
+    std::cout << "Request send" << std::endl
+              << "Returncode:" << get_success << std::endl;
 
     return 0;
 }
