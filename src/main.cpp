@@ -17,9 +17,6 @@ int main() {
     // set up curl global
     curl_global_init(CURL_GLOBAL_ALL);
 
-    // get handle
-    CURL *curl_handle = curl_easy_init();
-
     // return codes:      0 --> no error
     //               others --> see https://curl.se/libcurl/c/libcurl-errors.html
     PostRequest post_request = PostRequest(end_point);
